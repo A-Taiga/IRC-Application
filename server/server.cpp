@@ -6,6 +6,7 @@
 #include <iostream>
 #include <sys/socket.h>
 #include <unistd.h>
+#include <algorithm>
 
 IRC::Server::Server(const char* p)
     : listen_socket{0}
@@ -74,9 +75,10 @@ void IRC::Server::listen(int queue_size)
 void IRC::Server::accept(std::string welcome_msg)
 {
 	std::string      user_address = {};
-	sockaddr_storage connection   = {};
-	socklen_t        sin_size     = 0;
-	int              client_fd    = 0;
+	// std::string      uname(10, '\0');
+	sockaddr_storage connection = {};
+	socklen_t        sin_size   = 0;
+	int              client_fd  = 0;
 
 	sin_size  = sizeof(connection);
 	client_fd = ::accept(listen_socket, reinterpret_cast<sockaddr*>(&connection), &sin_size);
@@ -84,12 +86,15 @@ void IRC::Server::accept(std::string welcome_msg)
 		ERROR(__FILE__, __LINE__, __PRETTY_FUNCTION__, "accept()");
 
 	user_address = get_user_address(connection);
+	char buff[255];
+	::recv(client_fd,buff, 255, 0);
+	std::string uname(buff);
 
-	std::cout << "new client connection: " << user_address << std::endl;
+	std::cout << "new client connection: " << user_address << " " << uname << std::endl;
 
-	users.try_emplace(client_fd, client_fd, user_address, "USERNAME");
+	users.try_emplace(client_fd, client_fd, user_address, uname.data()); // switch to just emplace 
 
-	event_list.emplace_back();
+	// event_list.emplace_back();
 	EV_SET(&change_list, client_fd, EVFILT_READ, EV_ADD, 0, 0, 0);
 
 	kevent(kq, &change_list, 1, nullptr, 0, &timeout);
@@ -163,7 +168,7 @@ void IRC::Server::event_handler(Fl_Text_Buffer* textBuffer)
 	}
 }
 
-void IRC::Server::run(bool& running,Fl_Text_Buffer* textBuffer)
+void IRC::Server::run(bool& running, Fl_Text_Buffer* textBuffer)
 {
 	event_num = kevent(kq, &change_list, 1, nullptr, 0, &timeout);
 

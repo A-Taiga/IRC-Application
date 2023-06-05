@@ -16,35 +16,31 @@ main: $(objects) $(server_objects)
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 $(OBJ_DIR)main.o: main.cpp mainWindow.hpp
-	$(CC) $(CXXFLAGS) -c -o $@ $<
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 $(OBJ_DIR)mainWindow.o: mainWindow.cpp topBar.hpp tabs.hpp bottomBar.hpp server.hpp state.hpp
-	$(CC) $(CXXFLAGS) -c -o $@ $<
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 $(OBJ_DIR)topBar.o: topBar.cpp 
-	$(CC) $(CXXFLAGS) -c -o $@ $<
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 $(OBJ_DIR)tabs.o: tabs.cpp serverTab.hpp bottomBar.hpp server.hpp state.hpp
-	$(CC) $(CXXFLAGS) -c -o $@ $<
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 $(OBJ_DIR)serverTab.o: serverTab.cpp bottomBar.hpp server.hpp state.hpp
-	$(CC) $(CXXFLAGS) -c -o $@ $<
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 $(OBJ_DIR)bottomBar.o: bottomBar.cpp
-	$(CC) $(CXXFLAGS) -c -o $@ $<
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 $(OBJ_DIR)state.o: state.cpp server.hpp
-	$(CC) $(CXXFLAGS) -c -o $@ $<
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 $(OBJ_DIR)server.o: server.cpp user.hpp utility.hpp
-	$(CC) $(CXXFLAGS) -c -o $@ $<
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 $(OBJ_DIR)user.o: user.cpp utility.hpp
-	$(CC) $(CXXFLAGS) -c -o $@ $<
-
-
-
-
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 clean:
 	-rm main *.o $(OBJ_DIR)*.o
