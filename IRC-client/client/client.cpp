@@ -14,6 +14,7 @@ IRC::Client::Client(const char* _ip, const char* _port)
 }
 void IRC::Client::setup()
 {
+	return; ///REMOVE WHEN NOT TESTING UI
  	int status = 0;
 	struct addrinfo hints = {};
 	addrinfo* temp_info   = nullptr;

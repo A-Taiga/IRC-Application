@@ -4,6 +4,7 @@
 #include <FL/Fl_Window.H>
 #include "tempArea.hpp"
 #include "../client/msgHandler.hpp"
+#include "tabs.hpp"
 
 
 namespace GUI
@@ -11,7 +12,8 @@ namespace GUI
 	class MainWindow: public Fl_Window
 	{
 		public:
-		Group* area;
+		Tabs tabs;
+		// Group* area;
 		IRC::State& state;
 		MainWindow(int w, int h, IRC::State& s);
 	};
