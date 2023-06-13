@@ -86,13 +86,13 @@ void IRC::Server::accept(std::string welcome_msg)
 		ERROR(__FILE__, __LINE__, __PRETTY_FUNCTION__, "accept()");
 
 	user_address = get_user_address(connection);
-	char buff[255];
-	::recv(client_fd,buff, 255, 0);
-	std::string uname(buff);
+	// char buff[255];
+	// ::recv(client_fd,buff, 255, 0);
+	// std::string uname(buff);
 
-	std::cout << "new client connection: " << user_address << " " << uname << std::endl;
+	// std::cout << "new client connection: " << user_address << " " << uname << std::endl;
 
-	users.try_emplace(client_fd, client_fd, user_address, uname.data()); // switch to just emplace 
+	users.try_emplace(client_fd, client_fd, user_address, "uname.data()"); // switch to just emplace 
 
 	// event_list.emplace_back();
 	EV_SET(&change_list, client_fd, EVFILT_READ, EV_ADD, 0, 0, 0);
@@ -155,6 +155,8 @@ void IRC::Server::event_handler(Fl_Text_Buffer* textBuffer)
 			users[event_list[i].ident].print_msg(*buffer);
 
 			textBuffer->append(buffer);
+			textBuffer->append(" \n");
+
 
 			for (const auto& [key, value] : users)
 			{

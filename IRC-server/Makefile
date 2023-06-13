@@ -8,7 +8,7 @@ objects = main.o mainWindow.o topBar.o tabs.o \
 			serverTab.o bottomBar.o state.o
 server_objects = server.o user.o
 
-.PHONY: clean
+
 
 all: main
 
@@ -42,7 +42,9 @@ $(OBJ_DIR)server.o: server.cpp user.hpp utility.hpp
 $(OBJ_DIR)user.o: user.cpp utility.hpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
+.PHONY: run clean
+run:
+	./main
+
 clean:
 	-rm main *.o $(OBJ_DIR)*.o
-
-

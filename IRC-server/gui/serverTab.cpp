@@ -1,14 +1,14 @@
 #include "serverTab.hpp"
-#include "FL/Enumerations.H"
-#include "FL/Fl_Browser_.H"
-#include "FL/Fl_Button.H"
-#include "FL/Fl_Input.H"
-#include "FL/Fl_Multiline_Input.H"
-#include "FL/Fl_Scrollbar.H"
-#include "FL/Fl_Slider.H"
-#include "FL/Fl_Text_Buffer.H"
-#include "FL/Fl_Text_Display.H"
-#include "FL/Fl_Widget.H"
+#include <FL/Enumerations.H>
+#include <FL/Fl_Browser_.H>
+#include <FL/Fl_Button.H>
+#include <FL/Fl_Input.H>
+#include <FL/Fl_Multiline_Input.H>
+#include <FL/Fl_Scrollbar.H>
+#include <FL/Fl_Slider.H>
+#include <FL/Fl_Text_Buffer.H>
+#include <FL/Fl_Text_Display.H>
+#include <FL/Fl_Widget.H>
 #include "bottomBar.hpp"
 #include <cstddef>
 
